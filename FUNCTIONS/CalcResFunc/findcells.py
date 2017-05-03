@@ -47,8 +47,31 @@ def findcells(TIFfile, PARAMETERS):
     jv.start_vm(class_path=bf.JARS)
     path = 'C:\Users\Liliana\Desktop\Studio\PhD OXFORD 2016\Dominic Waithe\CalQuo\Data\calcium_test_29_9V'
     os.chdir(path)
-    md = bf.get_omexml_metadata(TIFfile)
-    mdroot = et.fromstring(md.encode('utf-8'))
+#    md = bf.get_omexml_metadata(TIFfile)
+#    mdroot = et.fromstring(md.encode('utf-8'))
+    
+    
+    
+    rdr = jv.JClassWrapper('loci.formats.in.OMETiffReader')()
+    rdr.setOriginalMetadataPopulated(True)
+    clsOMEXMLService = jv.JClassWrapper('loci.formats.services.OMEXMLService')
+    serviceFactory = jv.JClassWrapper('loci.common.services.ServiceFactory')()
+    service = serviceFactory.getInstance(clsOMEXMLService.klass)
+    metadata = service.createOMEXMLMetadata()
+    rdr.setMetadataStore(metadata)
+    rdr.setId(path)
+    root = metadata.getRoot()
+    first_image = root.getImage(0)
+    pixels = first_image.getPixels()
+    # The plane data isn't in the planes, it's in the tiff data
+    for idx in range(pixels.sizeOfTiffDataList()):
+        tiffData = pixels.getTiffData(idx)
+        c = tiffData.getFirstC().getValue().intValue()
+        t = tiffData.getFirstT().getValue().intValue()
+        print "TiffData: c=%d, t=%d" % (c, t)
+        
+    
+    
     
 #    print mdroot   
 #    print(mdroot[0].tag, mdroot[0].attrib)

@@ -82,3 +82,6 @@ def CalQuo_parameters():
     PARAMETERS['iter_outer'] = 20
     
     return PARAMETERS
+
+#PARAMETERS = CalQuo_parameters()
+#print (PARAMETERS['iter_outer'])

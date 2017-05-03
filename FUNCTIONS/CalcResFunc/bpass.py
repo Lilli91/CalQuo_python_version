@@ -2,6 +2,12 @@ from __future__ import division # Sets division to be float division
 import numpy as np
 import scipy.signal as sps
 
+
+import inspect
+
+
+
+
 def bpass(img,Lambda,w):
     #      Written 7-23-03 by Maria Kilfoil
     #      Adapted for Python in June 2013 by Kevin Smith (Maria Kilfoil's Group)
@@ -51,8 +57,20 @@ def bpass(img,Lambda,w):
     b = sps.convolve2d(b,by,'valid')
     res = g-b
     s = np.maximum(res/factor,0)
-    tmp=np.zeros([len(a[:,1]),len(a[1,:])])
-    tmp[w:(len(s[:,1])+w),w:(len(s[1,:])+w)]=s;
-    s=tmp
-    return s
     
+    #TEST LILI
+    global local_vars
+    local_vars = inspect.currentframe().f_locals
+                                     
+                                     
+                                     
+    #print ('TEST LILI s=', s) #DIFFERENT VALUES!!!
+    
+    tmp=np.zeros([len(a[:,1]),len(a[1,:])])
+    tmp[w:(len(s[:,1])+w),w:(len(s[1,:])+w)]=s
+    s=tmp
+    
+    return s
+
+#ERROR FOUND
+#.\FUNCTIONS\CalcResFunc\bpass.py:55: VisibleDeprecationWarning: using a non-integer number instead of an integer will result in an error in the future

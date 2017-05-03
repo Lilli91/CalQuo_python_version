@@ -32,6 +32,37 @@ Created on Thu Apr 27 10:37:28 2017
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import numpy as np
+from bpass import bpass
 
 def fit_beads_corr(im, pixel_thresh,feature_threshmax,Lambda,feature_size):
+    print('\n\n')
+    print('%%================================%%\n') 
+    print('Finding Features... \n')
+    print('%%================================%%\n') 
+    print('\n\n') 
+        
+    
+    ##=========================================================================
+    # Pre-filter image
+    
+    #PROBLE HERE!!! VALUES OF S ARE DIFFERENT FROM MATLAB
+    s = bpass(im,Lambda,feature_size/2)
+#    for i in range(0,20):
+#        for j in range(0,20):
+#            print (s[i,j]) #VALUES ARE NOT THE SAME OF MATLAB!!!
+
+                    
+    ##=========================================================================
+    # Set image bit depth here:
+        
+#    h=float(s)
+#    print (h)
+#    h=sum(np.histogram(float(s),256),2)
+#    h=np.cumsum(h)
+#    h=h/max(h)
+#    intmin = 1 + sum(h <  pixel_thresh)
+        
+
+    return s
     
